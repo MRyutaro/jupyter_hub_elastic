@@ -6,11 +6,7 @@ from logging.handlers import RotatingFileHandler
 from elastic.elastic_notebook import ElasticNotebook
 from ipykernel.ipkernel import IPythonKernel
 
-# 環境変数ROOT_DIRを取得
-ROOT_DIR = os.getenv("ROOT_DIR")
-if ROOT_DIR is None:
-    raise ValueError("ROOT_DIR is not set.")
-
+ROOT_DIR = "/workspaces/jupyter_hub_elastic"
 LOG_FILE_PATH = f"{ROOT_DIR}/kernels/elastic_kernel/elastic_kernel.log"
 CHECKPOINT_FILE_PATH = f"{ROOT_DIR}/kernels/elastic_kernel/checkpoint.pickle"
 

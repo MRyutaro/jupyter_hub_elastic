@@ -1,4 +1,12 @@
-# Configuration file for jupyterhub.
+import os
+
+import dotenv
+
+dotenv.load_dotenv()
+
+API_TOKEN = os.getenv('API_TOKEN')
+if API_TOKEN is None:
+    raise ValueError('API_TOKEN is not set')
 
 print("Hello Jupyter Hub Config")
 
@@ -20,3 +28,7 @@ c.DummyAuthenticator.password = ''
 c.JupyterHub.allow_named_servers = True
 c.Spawner.default_url = '/lab'
 c.Spawner.notebook_dir = '/workspaces/jupyter_hub_elastic'
+
+c.JupyterHub.api_tokens = {
+    API_TOKEN: 'vscode'
+}

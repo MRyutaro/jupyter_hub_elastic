@@ -10,3 +10,4 @@ jupyterhub-proxy.pid
 # Node.js
 
 # Other
+.env
