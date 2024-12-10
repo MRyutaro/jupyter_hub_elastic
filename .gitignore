@@ -1,4 +1,12 @@
+# Python
 *.pickle
 *.log
 .ipynb_checkpoints
 elastic_notebook_slim
+jupyterhub_cookie_secret
+jupyterhub.sqlite
+jupyterhub-proxy.pid
+
+# Node.js
+
+# Other

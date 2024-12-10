@@ -3,7 +3,7 @@
     "language": "python",
     "argv": [
       "python",
-      "kernels/elastic_kernel/kernel.py",
+      ".local/share/jupyter/kernels/kernel.py",
       "-f",
       "{connection_file}"
     ]
