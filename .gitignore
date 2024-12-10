@@ -1,0 +1,4 @@
+*.pickle
+*.log
+.ipynb_checkpoints
+elastic_notebook_slim
