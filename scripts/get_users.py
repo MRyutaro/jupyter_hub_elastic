@@ -1,8 +1,11 @@
-import os
-from pprint import pprint
+"""
+https://jupyterhub.readthedocs.io/en/stable/howto/rest.html#make-an-api-request
+"""
 
-import dotenv
+import os
 import requests
+import dotenv
+from pprint import pprint
 
 dotenv.load_dotenv()
 
@@ -13,10 +16,10 @@ if API_TOKEN is None:
 api_url = 'http://127.0.0.1:8081/hub/api'
 
 r = requests.get(api_url + '/users',
-    headers={
-        'Authorization': f'token {API_TOKEN}'
-    }
-)
+                 headers={
+                     'Authorization': f'token {API_TOKEN}'
+                 }
+                 )
 
 r.raise_for_status()
 users = r.json()
