@@ -20,14 +20,14 @@ c.JupyterHub.active_server_limit = 5
 c.JupyterHub.ip = '0.0.0.0'
 c.JupyterHub.port = 8000
 
-c.Authenticator.allowed_users = set(['vscode'])
+c.Authenticator.allowed_users = set(['vscode', 'user01', 'user02', 'user03'])
 c.Authenticator.admin_users = set(['vscode'])
 c.JupyterHub.authenticator_class = 'jupyterhub.auth.DummyAuthenticator'
 c.DummyAuthenticator.password = ''
 
 c.JupyterHub.allow_named_servers = True
 c.Spawner.default_url = '/lab'
-c.Spawner.notebook_dir = '/workspaces/jupyter_hub_elastic'
+# c.Spawner.notebook_dir = '/workspaces/jupyter_hub_elastic'
 
 c.JupyterHub.api_tokens = {
     API_TOKEN: 'vscode'

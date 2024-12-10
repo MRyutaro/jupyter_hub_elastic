@@ -15,11 +15,12 @@ if API_TOKEN is None:
 
 api_url = 'http://127.0.0.1:8081/hub/api'
 
-r = requests.get(api_url + '/users',
-                 headers={
-                     'Authorization': f'token {API_TOKEN}'
-                 }
-                 )
+r = requests.get(
+    api_url + '/users',
+    headers={
+        'Authorization': f'token {API_TOKEN}'
+    }
+)
 
 r.raise_for_status()
 users = r.json()

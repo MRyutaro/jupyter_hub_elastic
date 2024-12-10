@@ -8,7 +8,7 @@ PORT=8888
 # 現在のパスを取得
 ROOT_DIR=$(pwd)
 USRE_NAME=$(whoami)
-KERNELS_DIR=/home/$USRE_NAME/.local/share/jupyter/kernels
+KERNELS_DIR=/usr/local/share/jupyter/kernels
 echo ROOT_DIR: $ROOT_DIR
 echo KERNELS_DIR: $KERNELS_DIR
 

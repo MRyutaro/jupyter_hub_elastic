@@ -15,8 +15,8 @@ if API_TOKEN is None:
 
 api_url = 'http://127.0.0.1:8081/hub/api'
 
-user_name = 'vscode'
-server_name = '1'
+user_name = 'user01'
+server_name = ''
 
 r = requests.delete(
     api_url + f'/users/{user_name}/servers/{server_name}',
