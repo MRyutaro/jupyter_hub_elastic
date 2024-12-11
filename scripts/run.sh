@@ -39,7 +39,14 @@ for kernel in `ls $ROOT_DIR/kernels`; do
     fi
     # カーネルをコピー
     mkdir $KERNELS_DIR/$kernel
-    cp -r $ROOT_DIR/kernels/$kernel/kernel.json $KERNELS_DIR/$kernel
+    cp $ROOT_DIR/kernels/$kernel/kernel.json $KERNELS_DIR/$kernel
+
+    # kernel.pyがなかったらスキップ
+    if [ ! -e $ROOT_DIR/kernels/$kernel/kernel.py ]; then
+        echo "kernel.py not found: $kernel"
+        continue
+    fi
+    cp $ROOT_DIR/kernels/$kernel/kernel.py $KERNELS_DIR/$kernel
 done
 
 jupyter kernelspec list

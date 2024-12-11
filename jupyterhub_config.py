@@ -27,8 +27,10 @@ c.DummyAuthenticator.password = ''
 
 c.JupyterHub.allow_named_servers = True
 c.Spawner.default_url = '/lab'
-# c.Spawner.notebook_dir = '/workspaces/jupyter_hub_elastic'
 
 c.JupyterHub.api_tokens = {
     API_TOKEN: 'vscode'
 }
+
+# 隠しファイルを表示する
+c.Spawner.args = ['--ContentsManager.allow_hidden=True']

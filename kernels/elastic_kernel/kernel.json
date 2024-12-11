@@ -3,8 +3,12 @@
     "language": "python",
     "argv": [
       "python",
-      "kernels/elastic_kernel/kernel.py",
+      "-m",
+      "kernel",
       "-f",
       "{connection_file}"
-    ]
+    ],
+    "env": {
+      "PYTHONPATH": "/usr/local/share/jupyter/kernels/elastic_kernel"
+    }
 }
