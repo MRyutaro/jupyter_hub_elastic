@@ -1,18 +1,10 @@
 import {
-  JupyterFrontEnd,
   JupyterFrontEndPlugin
 } from '@jupyterlab/application';
+import connectionLostPlugin from './connectionLost';
 
-/**
- * Initialization data for the elastic-extension extension.
- */
-const plugin: JupyterFrontEndPlugin<void> = {
-  id: 'elastic-extension:plugin',
-  description: 'A JupyterLab extension.',
-  autoStart: true,
-  activate: (app: JupyterFrontEnd) => {
-    console.log('JupyterLab extension elastic-extension is activated!');
-  }
-};
+const plugins: JupyterFrontEndPlugin<any>[] = [
+  connectionLostPlugin
+];
 
-export default plugin;
+export default plugins;
