@@ -51,5 +51,7 @@ done
 
 jupyter kernelspec list
 
+jupyter labextension list
+
 jupyterhub \
     -f $CONFIG_FILE \
