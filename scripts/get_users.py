@@ -3,9 +3,10 @@ https://jupyterhub.readthedocs.io/en/stable/howto/rest.html#make-an-api-request
 """
 
 import os
-import requests
-import dotenv
 from pprint import pprint
+
+import dotenv
+import requests
 
 dotenv.load_dotenv()
 

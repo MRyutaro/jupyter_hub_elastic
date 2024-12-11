@@ -1,42 +1,76 @@
-import { JupyterFrontEnd, JupyterFrontEndPlugin } from '@jupyterlab/application';
+import {
+  ConnectionLost,
+  JupyterFrontEnd,
+  JupyterFrontEndPlugin,
+  JupyterLab
+} from '@jupyterlab/application';
 import { IConnectionLost } from '@jupyterlab/application';
-import { showDialog, Dialog } from '@jupyterlab/apputils';
+// import { showDialog, Dialog } from '@jupyterlab/apputils';
 import { ServiceManager, ServerConnection } from '@jupyterlab/services';
+import { ITranslator } from '@jupyterlab/translation';
 
-/**
- * Custom implementation of the connection lost handler.
- */
-const customConnectionLost: IConnectionLost = async (
-  manager: ServiceManager.IManager,
-  error: ServerConnection.NetworkError
-): Promise<void> => {
-  console.warn('Custom connection lost handler invoked.');
 
-  const result = await showDialog({
-    title: 'Connection Lost',
-    body: 'Custom message: The server connection was lost. Do you want to retry?',
-    buttons: [
-      Dialog.okButton({ label: 'Retry' }),
-      Dialog.cancelButton({ label: 'Dismiss' })
-    ]
-  });
+export namespace CommandIDs {
+  export const controlPanel: string = 'hub:control-panel';
 
-  if (result.button.accept) {
-    // Example of custom retry logic
-    console.log('Retrying connection...');
-    // Add custom retry logic here, such as reinitializing the manager.
-  }
-};
+  export const logout: string = 'hub:logout';
+
+  export const restart: string = 'hub:restart';
+}
 
 const connectionLostPlugin: JupyterFrontEndPlugin<IConnectionLost> = {
-  id: 'elastic-extension:connection-lost',
-  description: 'Custom connection lost handler for JupyterLab.',
-  provides: IConnectionLost,
-  autoStart: true,
-  activate: (app: JupyterFrontEnd): IConnectionLost => {
-    console.log('Custom connection lost plugin activated.');
-    return customConnectionLost;
-  }
-};
+    id: 'elastic-extension:connection-lost',
+    description:
+      'Custom connection lost handler for JupyterLab.',
+    requires: [JupyterFrontEnd.IPaths, ITranslator],
+    optional: [JupyterLab.IInfo],
+    activate: (
+      app: JupyterFrontEnd,
+      paths: JupyterFrontEnd.IPaths,
+      translator: ITranslator,
+      info: JupyterLab.IInfo | null
+    ): IConnectionLost => {
+      // const trans = translator.load('jupyterlab');
+      const hubPrefix = paths.urls.hubPrefix || '';
+      // const baseUrl = paths.urls.base;
+  
+      // Return the default error message if not running on JupyterHub.
+      if (!hubPrefix) {
+        return ConnectionLost;
+      }
+  
+      // If we are running on JupyterHub, return a dialog
+      // that prompts the user to restart their server.
+      let showingError = false;
+      const onConnectionLost: IConnectionLost = async (
+        manager: ServiceManager.IManager,
+        err: ServerConnection.NetworkError
+      ): Promise<void> => {
+        if (showingError) {
+          return;
+        }
+  
+        showingError = true;
+        if (info) {
+          info.isConnected = false;
+        }
+
+        // T秒後にリロード
+        const T = 5;
+        setTimeout(() => {
+          location.reload();
+        }, T * 1000);
+
+        if (info) {
+          info.isConnected = true;
+        }
+        showingError = false;
+
+      };
+      return onConnectionLost;
+    },
+    autoStart: true,
+    provides: IConnectionLost
+  };
 
 export default connectionLostPlugin;
