@@ -6,6 +6,7 @@ elastic_notebook_slim
 jupyterhub_cookie_secret
 jupyterhub.sqlite
 jupyterhub-proxy.pid
+jupyterlab
 
 # Node.js
 

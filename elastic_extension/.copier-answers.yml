@@ -1,0 +1,14 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: v4.3.6
+_src_path: https://github.com/jupyterlab/extension-template
+author_email: m2002r1028@icloud.com
+author_name: MRyutaro
+has_binder: false
+has_settings: false
+kind: frontend
+labextension_name: elastic-extension
+project_short_description: A JupyterLab extension.
+python_name: elastic_extension
+repository: ''
+test: true
+
