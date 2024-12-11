@@ -61,7 +61,7 @@ const connectionLostPlugin: JupyterFrontEndPlugin<IConnectionLost> = {
       const T = 5;
       setTimeout(() => {
         location.reload();
-        console.log('Reloaded after connection lost.');
+        console.log('Reloaded');
       }, T * 1000);
 
       if (info) {
