@@ -28,9 +28,43 @@ c.DummyAuthenticator.password = ''
 c.JupyterHub.allow_named_servers = True
 c.Spawner.default_url = '/lab'
 
+c.JupyterHub.spawner_class = 'jupyterhub.spawner.LocalProcessSpawner'
+
+# REST APIを使うための設定
 c.JupyterHub.api_tokens = {
     API_TOKEN: 'vscode'
 }
+"""
+TODO: 
+api_tokensは非推奨とのこと
+以下のように書き換える
+c.JupyterHub.services = [
+    {
+        # give the token a name
+        "name": "service-admin",
+        "api_token": "secret-token",
+        # "admin": True, # if using JupyterHub 1.x
+    },
+]
+c.JupyterHub.load_roles = [
+    {
+        "name": "service-role",
+        "scopes": [
+            # specify the permissions the token should have
+            "admin:users",
+        ],
+        "services": [
+            # assign the service the above permissions
+            "service-admin",
+        ],
+    }
+]
+"""
 
 # 隠しファイルを表示する
-c.Spawner.args = ['--ContentsManager.allow_hidden=True']
+c.Spawner.args = [
+    '--ContentsManager.allow_hidden=True',
+]
+
+# カスタムテンプレートのパスを設定
+# c.JupyterHub.template_paths = ['./templates']
