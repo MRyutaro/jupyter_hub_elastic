@@ -1,18 +1,29 @@
 #!/bin/bash
 
-# 現在のパスを取得
-ROOT_DIR=$(pwd)
-KERNELS_DIR=/usr/local/share/jupyter/kernels
+# 引数の数をチェック (必須)
+if [ "$#" -ne 2 ]; then
+    echo "Usage: $0 <root_dir> <kernels_dir>"
+    echo "Example: $0 /path/to/my/root /path/to/my/kernels"
+    exit 1 # エラーで終了
+fi
+
+ROOT_DIR="$1"
+KERNELS_DIR="$2"
+
+# ディレクトリの存在チェック (推奨)
+if [ ! -d "$ROOT_DIR" ]; then
+    echo "Error: ROOT_DIR '$ROOT_DIR' does not exist."
+    exit 1
+fi
+
+if [ ! -d "$KERNELS_DIR" ]; then
+    echo "Error: KERNELS_DIR '$KERNELS_DIR' does not exist."
+    exit 1
+fi
+
 echo ROOT_DIR: $ROOT_DIR
 echo KERNELS_DIR: $KERNELS_DIR
 
-CONFIG_FILE=$ROOT_DIR/jupyterhub_config.py
-echo CONFIG_FILE: $CONFIG_FILE
-
-# KERNELS_DIRがなかったら作成
-if [ ! -e $KERNELS_DIR ]; then
-    mkdir -p $KERNELS_DIR
-fi
 
 # KERNELS_DIRでforを回す
 for kernel in `ls $KERNELS_DIR`; do
@@ -24,7 +35,7 @@ for kernel in `ls $KERNELS_DIR`; do
     rm -rf $KERNELS_DIR/$kernel
 done
 
-# KERNELS_DIRでforを回す
+# $ROOT_DIR/kernelsでforを回す
 for kernel in `ls $ROOT_DIR/kernels`; do
     # kernel.jsonがなかったらスキップ
     if [ ! -e $ROOT_DIR/kernels/$kernel/kernel.json ]; then
